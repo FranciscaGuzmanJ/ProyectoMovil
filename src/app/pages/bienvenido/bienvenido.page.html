@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Bienvenido
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-app>
+  <ion-router-outlet></ion-router-outlet>
+</ion-app>
+
+<ion-content [fullscreen]="true">
+  <ion-content>
+    <div class="gallery">
+      <div class="gallery-item" *ngFor="let item of items">
+        <img [src]="item.image" alt="Imagen" />
+      </div>
+    </div>
+  </ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="bienvenido">
+        <ion-icon name="home-outline"></ion-icon>
+        Bienvenido
+      </ion-tab-button>
+      <ion-tab-button tab="subir-contenido">
+        <ion-icon name="add-outline"></ion-icon>
+        Subir contenido
+      </ion-tab-button>
+      <ion-tab-button tab="albumes">
+        <ion-icon name="images-outline"></ion-icon>
+        Álbumes
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>
