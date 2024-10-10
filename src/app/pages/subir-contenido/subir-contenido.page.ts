@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
           resultType: CameraResultType.Uri,
           source: CameraSource.Camera,
         });
-  
+  //hacerunalista, quizas sea eso el error
         const imageUrl = image.webPath; // URL de la imagen para usar en la web
         // Agregar la imagen a la lista en el servicio o pasarla a la página
         this.router.navigate(['/bienvenido/bienvenido'], { state: { imageUrl } });

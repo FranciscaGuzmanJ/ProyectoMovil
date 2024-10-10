@@ -8,13 +8,23 @@ import { provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 import { Camera } from '@ionic-native/camera/ngx';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from '../environments/environment';
 
 export function playerFactory(){
   return player;
 }
+
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig), // Inicialización de Firebase
+    AngularFireAuthModule
+  ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideLottieOptions({

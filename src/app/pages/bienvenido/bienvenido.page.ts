@@ -8,9 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BienvenidoPage implements OnInit {
   items: { image: string; date: string }[] = [];
-
+  usuario: string;
   constructor() {
     // Inicializa tu lista con imágenes predeterminadas, si es necesario
+    this.usuario = 'Usuario';
     this.items = [];
   }
 
