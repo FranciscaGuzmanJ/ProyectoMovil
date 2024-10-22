@@ -24,13 +24,4 @@ export class LoginPage {
   }
   
 
-  async onRegister() {
-    try {
-      await this.authService.register(this.usuario, this.password);
-      // Redirige a la página de bienvenida después de un registro exitoso
-      this.router.navigate(['/bienvenido']);
-        } catch (error) {
-      console.error(error);
-    }
-  }
 }

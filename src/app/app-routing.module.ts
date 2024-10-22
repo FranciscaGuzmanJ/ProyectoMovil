@@ -29,7 +29,11 @@ const routes: Routes = [
   {
     path: 'password',
     loadChildren: () => import('./pages/password/password.module').then(m => m.PasswordPageModule)
+  },  {
+    path: 'registro',
+    loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
   }
+
 ];
 
 @NgModule({
