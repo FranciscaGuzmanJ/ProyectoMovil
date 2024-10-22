@@ -1,9 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Bienvenido
+      Bienvenida/o {{usuario}}
     </ion-title>
+    <ion-button (click)=" logout()">Cerrar Sesión</ion-button>
   </ion-toolbar>
+
 </ion-header>
 <ion-app>
   <ion-router-outlet></ion-router-outlet>

@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card >
+  <ion-card>
     <ion-icon class="iconLogin" name="person-outline"></ion-icon>
     <ion-card-header>
       <ion-card-title>Login</ion-card-title>      
@@ -13,12 +13,13 @@
   
     <ion-card-content>
       <ion-item>
-        <ion-input label="Usuario" labelPlacement="floating" [(ngModel)]="login.usuario" ></ion-input>
+        <ion-input label="Correo electrónico" labelPlacement="floating" [(ngModel)]="usuario"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input label="Password" labelPlacement="floating" type="password" [(ngModel)]="login.password" ></ion-input>
+        <ion-input label="Contraseña" labelPlacement="floating" type="password" [(ngModel)]="password"></ion-input>
       </ion-item>
-      <ion-button expand="block" class="heartbeat" (click)="ingresar()">Iniciar Sesión</ion-button>
+      <ion-button expand="block" class="heartbeat" (click)="onLogin()">Iniciar Sesión</ion-button>
+      <ion-button expand="block" [routerLink]="['/registro']">Registro</ion-button>
       <a [routerLink]="['/password']">Recuperar Contraseña</a>
     </ion-card-content>
   </ion-card>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-bienvenido',
@@ -8,9 +9,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BienvenidoPage implements OnInit {
   items: { image: string; date: string }[] = [];
-
-  constructor() {
+  usuario: string;
+  constructor(private authService: AuthService, private router: Router) {
     // Inicializa tu lista con imágenes predeterminadas, si es necesario
+    this.usuario = 'Usuario';
     this.items = [];
   }
 
@@ -20,4 +22,14 @@ export class BienvenidoPage implements OnInit {
       this.items.push({ image: navigation.imageUrl, date: new Date().toLocaleDateString() });
     }
   }
+
+  logout() {
+    this.authService.logout().then(() => {
+      console.log('Sesión cerrada');
+      this.router.navigate(['/pag-espera']); // Redirige a la página de espera
+    }).catch(error => {
+      console.error('Error al cerrar sesión:', error);
+    });
 }
+}
+

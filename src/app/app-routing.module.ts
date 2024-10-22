@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard'; // Importa el guard
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
   {
     path: '',
@@ -13,28 +14,26 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'pag-espera',
-    loadChildren: () => import('./pages/pag-espera/pag-espera.module').then( m => m.PagEsperaPageModule)
-  },  {
+    loadChildren: () => import('./pages/pag-espera/pag-espera.module').then(m => m.PagEsperaPageModule)
+    
+  },
+  {
     path: 'bienvenido',
-    loadChildren: () => import('./pages/bienvenido/bienvenido.module').then( m => m.BienvenidoPageModule)
-  },
-  {
-    path: 'subir-contenido',
-    loadChildren: () => import('./pages/subir-contenido/subir-contenido.module').then( m => m.SubirContenidoPageModule)
-  },
-  {
-    path: 'albumes',
-    loadChildren: () => import('./pages/albumes/albumes.module').then( m => m.AlbumesPageModule)
+    loadChildren: () => import('./pages/bienvenido/bienvenido.module').then(m => m.BienvenidoPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'password',
-    loadChildren: () => import('./pages/password/password.module').then( m => m.PasswordPageModule)
+    loadChildren: () => import('./pages/password/password.module').then(m => m.PasswordPageModule)
+  },  {
+    path: 'registro',
+    loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
   }
-  
+
 ];
 
 @NgModule({
@@ -44,3 +43,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
