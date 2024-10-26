@@ -8,12 +8,15 @@ import { PagEsperaPageRoutingModule } from './pag-espera-routing.module';
 
 import { PagEsperaPage } from './pag-espera.page';
 
+
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PagEsperaPageRoutingModule
+    PagEsperaPageRoutingModule,
+    HttpClientModule
   ],
   declarations: [PagEsperaPage]
 })

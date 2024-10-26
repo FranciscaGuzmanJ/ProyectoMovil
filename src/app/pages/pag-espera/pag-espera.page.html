@@ -15,5 +15,10 @@
       <ion-title size="large">Bienvenido</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div class="gallery">
+    <div class="gallery-item" *ngFor="let item of items"> 
+      <img [src]="item.image" alt="Imagen" />
+    </div>
+  </div>
 </ion-content>
 

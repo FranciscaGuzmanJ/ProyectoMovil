@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-pag-espera',
@@ -10,14 +12,9 @@ import { AlertController } from '@ionic/angular';
 
 
 export class PagEsperaPage implements OnInit {
-
- 
- 
-  ngOnInit() {
- 
+  items: any[] = []; // Array para almacenar las imágenes
   
- 
-  }
+  ngOnInit() {}
   goToLogin() {
     this.router.navigate(['/login']);
   }
@@ -25,7 +22,9 @@ export class PagEsperaPage implements OnInit {
   login:any;
   constructor(public alertController:AlertController,
               private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private http: HttpClient) {
+    this.getImages();
     //recibo el parametro enviado desde la page Login
     this.activatedRoute.queryParams.subscribe(params =>{
       if(this.router.getCurrentNavigation()?.extras.state){
@@ -34,8 +33,25 @@ export class PagEsperaPage implements OnInit {
       }
     });
   }
+  getImages() {
+    const headers = new HttpHeaders({
+      'x-rapidapi-key': '985128acf9msha23e8b38dc632e5p1100a0jsnf83c4c9ba911', // Reemplaza con tu clave API
+      'x-rapidapi-host': 'pinterest-image-api1.p.rapidapi.com'
+    });
 
+    this.http.get('https://pinterest-image-api1.p.rapidapi.com/images?term=persons', { headers })
+      .subscribe(
+        (response: any) => {
+          this.items = response.images; // Asigna los datos de las imágenes al array
+          console.log('Images:', this.items);
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+  }
 }
+
 
 
 import { Injectable } from '@angular/core';
@@ -61,5 +77,6 @@ export class AuthService {
 
 
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 

@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 import { Camera } from '@ionic-native/camera/ngx';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
@@ -23,7 +23,8 @@ export function playerFactory(){
     IonicModule.forRoot(), 
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig), // Inicialización de Firebase
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
