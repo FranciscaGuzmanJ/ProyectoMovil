@@ -33,7 +33,7 @@
     "@ionic/angular": "^8.0.0",
     "bootstrap": "^5.3.3",
     "cordova-plugin-camera": "^7.0.0",
-    "firebase": "^10.14.0",
+    "firebase": "^10.14.1",
     "ionicons": "^7.0.0",
     "lottie-web": "^5.12.2",
     "ngx-lottie": "^12.0.0",

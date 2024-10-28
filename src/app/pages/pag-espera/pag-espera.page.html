@@ -15,10 +15,18 @@
       <ion-title size="large">Bienvenido</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div class="gallery">
-    <div class="gallery-item" *ngFor="let item of items"> 
-      <img [src]="item.image" alt="Imagen" />
-    </div>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <!-- Recorre el array de imágenes y muestra cada una -->
+      <ion-col size="6" *ngFor="let item of items">
+        <ion-card>
+          <img [src]="item.url" alt="Imagen de ejemplo" />
+          <ion-card-content>
+            <p>{{ item.description }}</p> <!-- Muestra la descripción si existe -->
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 

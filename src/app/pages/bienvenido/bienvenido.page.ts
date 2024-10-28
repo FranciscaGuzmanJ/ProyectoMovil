@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { Firestore, collection, query, where, orderBy, getDocs } from '@angular/fire/firestore';
+import { AuthService } from '../../services/auth.service'; // Asegúrate de tener el servicio de autenticación
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bienvenido',
@@ -8,21 +9,34 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./bienvenido.page.scss'],
 })
 export class BienvenidoPage implements OnInit {
-  items: { image: string; date: string }[] = [];
-  usuario: string;
-  constructor(private authService: AuthService, private router: Router) {
-    // Inicializa tu lista con imágenes predeterminadas, si es necesario
-    this.usuario = 'Usuario';
-    this.items = [];
+  imagenes: any[] = []; // Array para almacenar las URLs de las imágenes
+
+  constructor(private router: Router,private firestore: Firestore, private authService: AuthService) {}
+
+  async ngOnInit() {
+    await this.cargarImagenes();
   }
 
-  ngOnInit() {
-    const navigation = history.state;
-    if (navigation && navigation.imageUrl) {
-      this.items.push({ image: navigation.imageUrl, date: new Date().toLocaleDateString() });
+  async cargarImagenes() {
+    const user = this.authService.getCurrentUser(); // Método para obtener el usuario actual
+    if (user) {
+      const imageCollectionRef = collection(this.firestore, 'imagenes');
+      const imagenesQuery = query(
+        imageCollectionRef,
+        where('uid', '==', user.uid), // Filtrar por UID
+        orderBy('fechaCreado', 'desc') // Ordenar por fecha en orden descendente
+      );
+
+      const querySnapshot = await getDocs(imagenesQuery);
+
+      // Recorrer los documentos y guardar las URLs
+      querySnapshot.forEach((doc) => {
+        this.imagenes.push(doc.data());
+      });
+    } else {
+      console.error('No se encontró el usuario.');
     }
   }
-
   logout() {
     this.authService.logout().then(() => {
       console.log('Sesión cerrada');
@@ -32,4 +46,3 @@ export class BienvenidoPage implements OnInit {
     });
 }
 }
-

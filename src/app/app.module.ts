@@ -8,8 +8,13 @@ import { provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 import { Camera } from '@ionic-native/camera/ngx';
 import { HttpClientModule } from '@angular/common/http';
-import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
 export function playerFactory(){
@@ -24,6 +29,8 @@ export function playerFactory(){
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig), // Inicialización de Firebase
     AngularFireAuthModule,
+    AngularFirestoreModule,
+    
     HttpClientModule
   ],
   providers: [
@@ -31,6 +38,9 @@ export function playerFactory(){
     provideLottieOptions({
       player: () => import('lottie-web'),
     }),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
     Camera, 
   ],
   bootstrap: [AppComponent],
