@@ -16,9 +16,15 @@
     </ion-toolbar>
   </ion-header>
   <div class="gallery">
-    <div class="gallery-item" *ngFor="let item of items"> 
-      <img [src]="item.image" alt="Imagen" />
-    </div>
+    <ion-card *ngFor="let item of items" class="gallery-item">
+      <ion-card-header>
+        <ion-card-title>Imagen</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <img [src]="item" alt="Imagen" />
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
+
 
