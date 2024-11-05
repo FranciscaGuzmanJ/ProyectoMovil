@@ -9,14 +9,14 @@
 
 <ion-content>
   <div *ngIf="imagenes.length > 0; else noImages">
-    <ion-grid>
+    <ion-grid> 
       <ion-row>
-        <ion-col size="6" *ngFor="let img of imagenes">
-          <ion-card>
+        <ion-col >
+          <ion-card size="6" *ngFor="let img of imagenes">
             <img [src]="img.url" alt="Imagen" />
             <ion-card-header>
-              <ion-card-title>{{ img.titulo }}</ion-card-title>
-              <ion-card-subtitle>{{ img.fechaCreado.toDate() | date: 'short' }}</ion-card-subtitle>
+              <ion-card-title>{{ img.titulo || 'Imagen' }}</ion-card-title>
+              <ion-card-subtitle>{{ img.fecha.toDate() | date: 'short' }}</ion-card-subtitle>
             </ion-card-header>
           </ion-card>
         </ion-col>
@@ -29,15 +29,15 @@
 
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="bienvenido">
+      <ion-tab-button tab="bienvenido" routerDirection="root">
         <ion-icon name="home-outline"></ion-icon>
         Bienvenido
       </ion-tab-button>
-      <ion-tab-button tab="subir-contenido">
+      <ion-tab-button tab="subir-contenido" routerDirection="root">
         <ion-icon name="add-outline"></ion-icon>
         Subir contenido
       </ion-tab-button>
-      <ion-tab-button tab="albumes">
+      <ion-tab-button tab="albumes" routerDirection="root">
         <ion-icon name="images-outline"></ion-icon>
         Álbumes
       </ion-tab-button>

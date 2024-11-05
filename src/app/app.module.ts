@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -30,7 +30,7 @@ export function playerFactory(){
     AngularFireModule.initializeApp(environment.firebaseConfig), // Inicialización de Firebase
     AngularFireAuthModule,
     AngularFirestoreModule,
-    
+    AngularFireStorageModule,
     HttpClientModule
   ],
   providers: [

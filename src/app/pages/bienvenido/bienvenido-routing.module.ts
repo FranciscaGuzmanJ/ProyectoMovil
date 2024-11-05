@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: BienvenidoPage,
     canActivate: [AuthGuard],
-    children:[
+    children: [
       {
         path: 'bienvenido',
         loadChildren: () => import('./../../pages/bienvenido/bienvenido.module').then( m => m.BienvenidoPageModule)
@@ -20,11 +20,16 @@ const routes: Routes = [
         loadChildren: () => import('./../../pages/subir-contenido/subir-contenido.module').then( m => m.SubirContenidoPageModule)
       },
       {
-        path: 'albumes',
-        loadChildren: () => import('./../../pages/albumes/albumes.module').then( m => m.AlbumesPageModule)
-      },
-      
+        path: '',
+        redirectTo: 'bienvenido', // Redireccionar a 'bienvenido' cuando se acceda a la raíz
+        pathMatch: 'full'
+      }
     ]
+  },
+  {
+    path: 'bienvenido',
+    component: BienvenidoPage, // Define bienvenido como una ruta principal sin estar en children
+    canActivate: [AuthGuard]
   }
 ];
 
