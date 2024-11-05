@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Firestore, collection, query, where, orderBy, getDocs, doc } from '@angular/fire/firestore';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bienvenido',
@@ -8,28 +9,40 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./bienvenido.page.scss'],
 })
 export class BienvenidoPage implements OnInit {
-  items: { image: string; date: string }[] = [];
-  usuario: string;
-  constructor(private authService: AuthService, private router: Router) {
-    // Inicializa tu lista con imágenes predeterminadas, si es necesario
-    this.usuario = 'Usuario';
-    this.items = [];
+  imagenes: any[] = []; // Array para almacenar las URLs de las imágenes
+
+  constructor(private router: Router, private firestore: Firestore, private authService: AuthService) {}
+
+  async ngOnInit() {
+    const navigation = history.state;
+    await this.cargarImagenes();
   }
 
-  ngOnInit() {
-    const navigation = history.state;
-    if (navigation && navigation.imageUrl) {
-      this.items.push({ image: navigation.imageUrl, date: new Date().toLocaleDateString() });
+  async cargarImagenes() {
+    const user = this.authService.getCurrentUser();
+    if (user) {
+      const userRef = doc(this.firestore, `users/${user.uid}`); // Referencia al usuario actual
+      const imageCollectionRef = collection(this.firestore, 'imagenes');
+      const imagenesQuery = query(
+        imageCollectionRef,
+        where('uid', '==', userRef), // Filtrar por referencia al documento de usuario
+        orderBy('fecha', 'desc')
+      );
+
+      const querySnapshot = await getDocs(imagenesQuery);
+      querySnapshot.forEach((doc) => {
+        this.imagenes.push(doc.data());
+      });
+    } else {
+      console.error('No se encontró el usuario.');
     }
   }
 
   logout() {
     this.authService.logout().then(() => {
-      console.log('Sesión cerrada');
-      this.router.navigate(['/pag-espera']); // Redirige a la página de espera
+      this.router.navigate(['/pag-espera']);
     }).catch(error => {
       console.error('Error al cerrar sesión:', error);
     });
+  }
 }
-}
-
